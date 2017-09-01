@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pokeman</title>
+    <link rel="stylesheet" type="text/css" href="pokemon.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="body">
+            <script type= "text/javascript">
+
+                $(document).ready(function(res){
+                    for(var i=1; i <= 151; i ++){
+                    $("body").append("<img id="+i+" src='http://pokeapi.co/media/img/"+i+".png'>");
+                    $(document).on("click", "img", function(){
+                        var id = this.id
+                        $.get('http://pokeapi.co/api/v1/pokemon/' + id, function(res) {
+                            var html_str = "";
+                            html_str += '<img src="http://pokeapi.co/media/img/' + id + '.png">';
+                            html_str += "<h1> " + res['name'] + "</h1>";
+                            html_str += "<h4>Height:</h4>";
+                            html_str += res['height'];
+                            html_str += "<h4>Weight</h4>";
+                            html_str += res['weight'];
+                            html_str += "<h4>Types</h4>";
+                            html_str += "<ul>";
+                            for(var j = 0; j < res['types'].length; j++) {
+                                html_str += "<li>" + res['types'][j]['name'] + "</li>";
+                            }
+                            html_str += "</ul>";
+        
+                            $('#pokedex').html(html_str);
+                            $("#pokedex").css("background-image", "url('http://pokeapi.co/media/img/" + id + ".png')");
+                        
+                        });
+                    });
+                    }
+                });
+        
+            
+
+                
+            </script>
+    </div>
+    <div id="pokedex">
+    </div>
+</body>
+</html>
